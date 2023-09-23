@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager API</title>
+  </head>
+  <body>
+    <h1>Delete Task</h1>
+    <div>
+      <a href="/">
+        <button>Go Home</button>
+      </a>
+    </div>
+    <br />
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+        align-items: start;
+      "
+    >
+      <form
+        id="idForm"
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          justify-content: center;
+          align-items: start;
+        "
+      >
+        <div>
+          <div>
+            <label for="id">ID: </label>
+          </div>
+          <input type="text" id="id" name="id" />
+        </div>
+        <button>Delete Task</button>
+      </form>
+      <pre id="display"></pre>
+    </div>
+  </body>
+  <script>
+    const idForm = document.getElementById("idForm");
+    const displayDiv = document.getElementById("display");
+
+    idForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(idForm);
+      const idInput = formData.get("id");
+
+      displayDiv.innerText = "";
+      const res = await fetch(`/tasks/${idInput}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        return (displayDiv.innerText +=
+          (await res.json())?.message ?? "No such task exists! Try another!");
+      }
+      alert(
+        (await res.json())?.message ?? "Task has been deleted successfully!"
+      );
+      window.location.assign("/");
+    });
+  </script>
+</html>

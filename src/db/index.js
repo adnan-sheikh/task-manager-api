@@ -40,7 +40,12 @@ class MemDb {
       return null;
     }
     const updatedTask = { ...newTaskDetails, id: taskId };
-    db.tasks[taskId] = updatedTask;
+    db.tasks = db.tasks.map((task) => {
+      if (task.id == taskId) {
+        return updatedTask;
+      }
+      return task;
+    });
     return updatedTask;
   }
 
@@ -49,7 +54,7 @@ class MemDb {
     if (!taskExists) {
       return null;
     }
-    db = db.tasks.filter((task) => task.id != id);
+    db.tasks = db.tasks.filter((task) => task.id != id);
     return db.tasks;
   }
 }

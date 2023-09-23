@@ -133,9 +133,12 @@
       });
       if (!res.ok) {
         return (extraUpdateForm.innerHTML +=
-          (await res.json()).message ?? "No such task exists! Try another!");
+          (await res.json())?.message ?? "No such task exists! Try another!");
       }
-      alert("Task has been updated successfull! Cheers!!");
+      alert(
+        (await res.json())?.message ??
+          "Task has been updated successfully! Cheers!!"
+      );
       window.location.assign("/");
     });
   </script>

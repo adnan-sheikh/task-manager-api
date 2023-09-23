@@ -36,11 +36,16 @@ app.get("/update-task", (req, res) => {
   res.status(200).sendFile(updateTaskFilePath);
 });
 
+app.get("/delete-task", (req, res) => {
+  const deleteTaskFilePath = path.resolve("src", "pages", "delete-task.html");
+  res.status(200).sendFile(deleteTaskFilePath);
+});
+
 app.get("/tasks", (req, res) => {
   const allTasks = MemDb.getAllTasks();
   if (allTasks.length === 0) {
     return res.status(404).json({
-      message: "Tasks are empty!",
+      message: "Tasks are empty! Create a new task to view!",
     });
   }
   res.status(200).json(allTasks);

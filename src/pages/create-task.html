@@ -68,7 +68,11 @@
           "Content-Type": "application/json",
         },
       });
-      const backendTaskRes = await res.json();
+      alert(
+        (await res.json())?.message ??
+          "Task has been created successfully! Cheers!!"
+      );
+      window.location.assign("/");
     });
   </script>
 </html>
