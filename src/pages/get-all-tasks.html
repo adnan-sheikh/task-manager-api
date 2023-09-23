@@ -6,17 +6,16 @@
     <title>Task Manager API</title>
   </head>
   <body>
-    <div
-      style="display: flex; justify-content: space-between; align-items: center"
-    >
-      <h1>Get All Tasks</h1>
+    <h1>Get All Tasks</h1>
+    <div>
       <a href="/">
         <button>Go Home</button>
       </a>
     </div>
+    <br />
     <button onclick="fetchAllTasks()">Get</button>
     <button onclick="reset()">Reset</button>
-    <pre id="display"></pre>
+    <pre id="display" style="max-height: 650px; overflow: auto"></pre>
   </body>
   <script>
     const displayDiv = document.getElementById("display");

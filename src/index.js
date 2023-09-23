@@ -21,9 +21,25 @@ app.get("/get-all-tasks", (req, res) => {
   res.status(200).sendFile(getAllTasksFilePath);
 });
 
+app.get("/create-task", (req, res) => {
+  const createTaskFilePath = path.resolve("src", "pages", "create-task.html");
+  res.status(200).sendFile(createTaskFilePath);
+});
+
 app.get("/tasks", (req, res) => {
   const allTasks = MemDb.getAllTasks();
+  if (allTasks.length === 0) {
+    return res.status(404).json({
+      message: "Tasks are empty!",
+    });
+  }
   res.status(200).json(allTasks);
+});
+
+app.post("/tasks", (req, res) => {
+  const newTask = req.body;
+  console.log(newTask);
+  res.status(200).json({ message: "Successfully created new task!" });
 });
 
 app.listen(PORT, (err) => {
