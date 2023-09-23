@@ -28,7 +28,7 @@ class MemDb {
   }
 
   static createNewTask(taskDetails) {
-    const newTask = { id: id++, taskDetails };
+    const newTask = { id: id++, ...taskDetails };
     db.tasks.push(newTask);
     return newTask;
   }

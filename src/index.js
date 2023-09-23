@@ -38,8 +38,8 @@ app.get("/tasks", (req, res) => {
 
 app.post("/tasks", (req, res) => {
   const newTask = req.body;
-  console.log(newTask);
-  res.status(200).json({ message: "Successfully created new task!" });
+  const task = MemDb.createNewTask(newTask);
+  res.status(200).json({ message: "Successfully created new task!", task });
 });
 
 app.listen(PORT, (err) => {
