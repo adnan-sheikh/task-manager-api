@@ -57,6 +57,18 @@ app.get("/tasks/:id", (req, res) => {
   res.status(200).json({ ...task });
 });
 
+app.put("/tasks/:id", (req, res) => {
+  const updatedTask = req.body;
+  const task = MemDb.updateTask(updatedTask);
+  if (!task) {
+    return res.status(404).json({
+      message:
+        "No such task found. Please try updating a task with a valid ID!",
+    });
+  }
+  res.status(200).json({ ...task });
+});
+
 app.listen(PORT, (err) => {
   if (err) {
     return console.log("Error starting the server!");

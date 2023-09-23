@@ -33,13 +33,15 @@ class MemDb {
     return newTask;
   }
 
-  static updateTask(taskDetails) {
-    const taskToUpdate = this.getTaskById(taskDetails.id);
-    if (!taskToUpdate) {
+  static updateTask(newTaskDetails) {
+    const taskId = +newTaskDetails.id;
+    const oldTaskDetails = this.getTaskById(taskId);
+    if (!oldTaskDetails) {
       return null;
     }
-    db[taskDetails.id] = taskToUpdate;
-    return taskToUpdate;
+    const updatedTask = { ...newTaskDetails, id: taskId };
+    db.tasks[taskId] = updatedTask;
+    return updatedTask;
   }
 
   static deleteTaskById(id) {

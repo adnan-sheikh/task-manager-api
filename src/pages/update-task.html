@@ -70,7 +70,6 @@
           (await res.json()).message ?? "No such task exists! Try another!");
       }
       const task = await res.json();
-      console.log(task.completed ? "false" : "true");
       if (Object.keys(task).length !== 0) {
         extraUpdateForm.innerHTML += `
         <div>
@@ -119,17 +118,25 @@
 
     extraUpdateForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const idFormData = new FormData(idForm);
+      const id = idFormData.get("id");
       const formData = new FormData(extraUpdateForm);
+      formData.append("id", id);
       const newTask = Object.fromEntries(formData);
       newTask.completed = newTask.completed === "yes" ? true : false;
-      const res = await fetch("/tasks", {
+      const res = await fetch(`/tasks/${id}`, {
         method: "PUT",
         body: JSON.stringify(newTask),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const backendTaskRes = await res.json();
+      if (!res.ok) {
+        return (extraUpdateForm.innerHTML +=
+          (await res.json()).message ?? "No such task exists! Try another!");
+      }
+      alert("Task has been updated successfull! Cheers!!");
+      window.location.assign("/");
     });
   </script>
 </html>
