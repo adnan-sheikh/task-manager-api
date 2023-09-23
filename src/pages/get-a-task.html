@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager API</title>
+  </head>
+  <body>
+    <h1>Get A Task</h1>
+    <div>
+      <a href="/">
+        <button>Go Home</button>
+      </a>
+    </div>
+    <br />
+    <form
+      id="idForm"
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+        align-items: start;
+      "
+    >
+      <div>
+        <div>
+          <label for="id">ID: </label>
+        </div>
+        <input type="text" id="id" name="id" />
+      </div>
+      <button>Fetch Details</button>
+    </form>
+    <br />
+    <button onclick="reset()">Reset</button>
+    <pre id="display" style="max-height: 650px; overflow: auto"></pre>
+  </body>
+  <script>
+    const displayDiv = document.getElementById("display");
+
+    const idForm = document.getElementById("idForm");
+    const extraUpdateForm = document.getElementById("updateForm");
+
+    idForm.addEventListener("submit", async (e) => {
+      reset();
+      e.preventDefault();
+      const formData = new FormData(idForm);
+      const id = formData.get("id");
+      displayDiv.innerText = `Loading Task with ID: ${id}... Hang on!`;
+      setTimeout(async () => {
+        const res = await fetch(`/tasks/${id}`, {
+          method: "GET",
+        });
+        if (!res.ok) {
+          reset();
+          return (displayDiv.innerText +=
+            (await res.json()).message ?? "No such task exists! Try another!");
+        }
+        const task = await res.json();
+        displayDiv.innerText = JSON.stringify(task, null, 4);
+        document.body.appendChild(displayDiv);
+      }, 1000);
+    });
+
+    function reset() {
+      displayDiv.innerText = "";
+    }
+  </script>
+</html>

@@ -21,6 +21,11 @@ app.get("/get-all-tasks", (req, res) => {
   res.status(200).sendFile(getAllTasksFilePath);
 });
 
+app.get("/get-task", (req, res) => {
+  const getTaskFilePath = path.resolve("src", "pages", "get-a-task.html");
+  res.status(200).sendFile(getTaskFilePath);
+});
+
 app.get("/create-task", (req, res) => {
   const createTaskFilePath = path.resolve("src", "pages", "create-task.html");
   res.status(200).sendFile(createTaskFilePath);
@@ -50,9 +55,9 @@ app.post("/tasks", (req, res) => {
 app.get("/tasks/:id", (req, res) => {
   const task = MemDb.getTaskById(req.params.id);
   if (!task) {
-    return res
-      .status(404)
-      .json({ message: "No such task found. Please try for some other task!" });
+    return res.status(404).json({
+      message: "No such task found. Please try getting a task with valid ID!",
+    });
   }
   res.status(200).json({ ...task });
 });
