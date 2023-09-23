@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager API</title>
+  </head>
+  <body>
+    <div
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <h1>Get All Tasks</h1>
+      <a href="/">
+        <button>Go Home</button>
+      </a>
+    </div>
+    <button onclick="fetchAllTasks()">Get</button>
+    <button onclick="reset()">Reset</button>
+    <pre id="display"></pre>
+  </body>
+  <script>
+    const displayDiv = document.getElementById("display");
+
+    async function fetchAllTasks() {
+      reset();
+      displayDiv.innerText = "Loading all the tasks... Hang on!";
+      setTimeout(async () => {
+        const res = await fetch("/tasks", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const allTasks = await res.json();
+        displayDiv.innerText = JSON.stringify(allTasks, null, 4);
+        document.body.appendChild(displayDiv);
+      }, 1000);
+    }
+
+    function reset() {
+      displayDiv.innerText = "";
+    }
+  </script>
+</html>
