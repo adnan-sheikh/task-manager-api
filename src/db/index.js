@@ -45,7 +45,11 @@ class MemDb {
   }
 
   static deleteTaskById(id) {
-    db = db.tasks.filter((task) => task.id !== id);
+    const taskExists = this.getTaskById(id);
+    if (!taskExists) {
+      return null;
+    }
+    db = db.tasks.filter((task) => task.id != id);
     return db.tasks;
   }
 }

@@ -74,6 +74,17 @@ app.put("/tasks/:id", (req, res) => {
   res.status(200).json({ ...task });
 });
 
+app.delete("/tasks/:id", (req, res) => {
+  const tasks = MemDb.deleteTaskById(req.params.id);
+  if (!tasks) {
+    return res.status(404).json({
+      message:
+        "No such task found. Please try deleting a task with a valid ID!",
+    });
+  }
+  res.status(200).json({ message: "Successfully deleted the task!" });
+});
+
 app.listen(PORT, (err) => {
   if (err) {
     return console.log("Error starting the server!");
