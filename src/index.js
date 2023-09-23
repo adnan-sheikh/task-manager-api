@@ -26,6 +26,11 @@ app.get("/create-task", (req, res) => {
   res.status(200).sendFile(createTaskFilePath);
 });
 
+app.get("/update-task", (req, res) => {
+  const updateTaskFilePath = path.resolve("src", "pages", "update-task.html");
+  res.status(200).sendFile(updateTaskFilePath);
+});
+
 app.get("/tasks", (req, res) => {
   const allTasks = MemDb.getAllTasks();
   if (allTasks.length === 0) {
@@ -40,6 +45,16 @@ app.post("/tasks", (req, res) => {
   const newTask = req.body;
   const task = MemDb.createNewTask(newTask);
   res.status(200).json({ message: "Successfully created new task!", task });
+});
+
+app.get("/tasks/:id", (req, res) => {
+  const task = MemDb.getTaskById(req.params.id);
+  if (!task) {
+    return res
+      .status(404)
+      .json({ message: "No such task found. Please try for some other task!" });
+  }
+  res.status(200).json({ ...task });
 });
 
 app.listen(PORT, (err) => {

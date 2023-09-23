@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager API</title>
+  </head>
+  <body>
+    <h1>Update Task</h1>
+    <div>
+      <a href="/">
+        <button>Go Home</button>
+      </a>
+    </div>
+    <br />
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+        align-items: start;
+      "
+    >
+      <form
+        id="idForm"
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          justify-content: center;
+          align-items: start;
+        "
+      >
+        <div>
+          <div>
+            <label for="id">ID: </label>
+          </div>
+          <input type="text" id="id" name="id" />
+        </div>
+        <button>Fetch Details</button>
+      </form>
+      <form
+        id="updateForm"
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          justify-content: center;
+          align-items: start;
+        "
+      ></form>
+    </div>
+  </body>
+  <script>
+    const idForm = document.getElementById("idForm");
+    const extraUpdateForm = document.getElementById("updateForm");
+
+    idForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(idForm);
+      const idInput = formData.get("id");
+
+      extraUpdateForm.innerHTML = "";
+      const res = await fetch(`/tasks/${idInput}`, {
+        method: "GET",
+      });
+      if (!res.ok) {
+        return (extraUpdateForm.innerHTML +=
+          (await res.json()).message ?? "No such task exists! Try another!");
+      }
+      const task = await res.json();
+      console.log(task.completed ? "false" : "true");
+      if (Object.keys(task).length !== 0) {
+        extraUpdateForm.innerHTML += `
+        <div>
+          <div>
+            <label for="title">Title: </label>
+          </div>
+          <input type="text" id="title" name="title" value="${task.title}" />
+        </div>
+        <div>
+          <div>
+            <label for="description">Description: </label>
+          </div>
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            rows="5"
+          >${task.description}</textarea>
+        </div>
+        <fieldset style="width: fit-content">
+          <legend>Is the task completed?</legend>
+          <div>
+            <input type="radio" id="yes" name="completed" value="yes" />
+            <label for="yes">Yes</label>
+          </div>
+          <div>
+            <input type="radio" id="no" name="completed" value="no" />
+            <label for="no">No</label>
+          </div>
+        </fieldset>
+        <button type="submit">Update</button>
+        `;
+        const yesBtn = document.getElementById("yes");
+        const noBtn = document.getElementById("no");
+
+        if (task.completed) {
+          yesBtn.checked = true;
+        } else {
+          noBtn.checked = true;
+        }
+      } else {
+        extraUpdateForm.innerHTML +=
+          task.message ?? "No such task exists! Try another!";
+      }
+    });
+
+    extraUpdateForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(extraUpdateForm);
+      const newTask = Object.fromEntries(formData);
+      newTask.completed = newTask.completed === "yes" ? true : false;
+      const res = await fetch("/tasks", {
+        method: "PUT",
+        body: JSON.stringify(newTask),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const backendTaskRes = await res.json();
+    });
+  </script>
+</html>

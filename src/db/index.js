@@ -20,7 +20,7 @@ const db = {
 
 class MemDb {
   static getTaskById(id) {
-    return db.tasks.find((task) => task.id === id);
+    return db.tasks.find((task) => task.id == id);
   }
 
   static getAllTasks() {
