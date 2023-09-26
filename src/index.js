@@ -1,6 +1,12 @@
 const express = require("express");
 const path = require("path");
-const MemDb = require("./db");
+const {
+  getAllTasks,
+  createNewTask,
+  getTaskById,
+  updateTask,
+  deleteTaskById,
+} = require("./handlers/tasks");
 
 const PORT = 3000;
 const app = express();
@@ -42,7 +48,7 @@ app.get("/delete-task", (req, res) => {
 });
 
 app.get("/tasks", (req, res) => {
-  const allTasks = MemDb.getAllTasks();
+  const allTasks = getAllTasks();
   if (allTasks.length === 0) {
     return res.status(404).json({
       message: "Tasks are empty! Create a new task to view!",
@@ -53,12 +59,12 @@ app.get("/tasks", (req, res) => {
 
 app.post("/tasks", (req, res) => {
   const newTask = req.body;
-  const task = MemDb.createNewTask(newTask);
+  const task = createNewTask(newTask);
   res.status(200).json({ message: "Successfully created new task!", task });
 });
 
 app.get("/tasks/:id", (req, res) => {
-  const task = MemDb.getTaskById(req.params.id);
+  const task = getTaskById(req.params.id);
   if (!task) {
     return res.status(404).json({
       message: "No such task found. Please try getting a task with valid ID!",
@@ -69,7 +75,7 @@ app.get("/tasks/:id", (req, res) => {
 
 app.put("/tasks/:id", (req, res) => {
   const updatedTask = req.body;
-  const task = MemDb.updateTask(updatedTask);
+  const task = updateTask(updatedTask);
   if (!task) {
     return res.status(404).json({
       message:
@@ -80,7 +86,7 @@ app.put("/tasks/:id", (req, res) => {
 });
 
 app.delete("/tasks/:id", (req, res) => {
-  const tasks = MemDb.deleteTaskById(req.params.id);
+  const tasks = deleteTaskById(req.params.id);
   if (!tasks) {
     return res.status(404).json({
       message:
