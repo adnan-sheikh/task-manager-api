@@ -50,6 +50,7 @@
           align-items: start;
         "
       ></form>
+      <pre id="errorElement"></pre>
     </div>
   </body>
   <script>
@@ -124,6 +125,8 @@
       formData.append("id", id);
       const newTask = Object.fromEntries(formData);
       newTask.completed = newTask.completed === "yes" ? true : false;
+      const errorElement = document.getElementById("errorElement");
+      errorElement.textContent = "";
       const res = await fetch(`/tasks/${id}`, {
         method: "PUT",
         body: JSON.stringify(newTask),
@@ -132,8 +135,8 @@
         },
       });
       if (!res.ok) {
-        return (extraUpdateForm.innerHTML +=
-          (await res.json())?.message ?? "No such task exists! Try another!");
+        const error = await res.json();
+        return (errorElement.textContent = JSON.stringify(error, null, 2));
       }
       alert(
         (await res.json())?.message ??

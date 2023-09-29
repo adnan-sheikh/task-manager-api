@@ -52,15 +52,18 @@
         </div>
       </fieldset>
       <button type="submit">Create</button>
+      <pre id="errorElement"></pre>
     </form>
   </body>
   <script>
     const createTaskForm = document.getElementById("createTaskForm");
+    const errorElement = document.getElementById("errorElement");
     createTaskForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(createTaskForm);
       const newTask = Object.fromEntries(formData);
       newTask.completed = newTask.completed === "yes" ? true : false;
+      errorElement.textContent = "";
       const res = await fetch("/tasks", {
         method: "POST",
         body: JSON.stringify(newTask),
@@ -68,6 +71,11 @@
           "Content-Type": "application/json",
         },
       });
+      if (!res.ok) {
+        const error = await res.json();
+        errorElement.textContent = JSON.stringify(error, null, 2);
+        createTaskForm.appendChild(errorElement);
+      }
       alert(
         (await res.json())?.message ??
           "Task has been created successfully! Cheers!!"
