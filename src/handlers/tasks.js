@@ -34,7 +34,7 @@ function updateTask(req, res) {
   const oldTaskDetails = db.tasks.find((task) => task.id == req.params.id);
   if (!oldTaskDetails) {
     return res.status(404).json({
-      message: "No such task found. Please try getting a task with valid ID!",
+      message: "No such task found. Please try updating a task with valid ID!",
     });
   }
   const taskId = +newTaskDetails.id;
@@ -52,7 +52,7 @@ function deleteTaskById(req, res) {
   const oldTaskDetails = db.tasks.find((task) => task.id == req.params.id);
   if (!oldTaskDetails) {
     return res.status(404).json({
-      message: "No such task found. Please try getting a task with valid ID!",
+      message: "No such task found. Please try deleting a task with valid ID!",
     });
   }
   db.tasks = db.tasks.filter((task) => task.id != req.params.id);
