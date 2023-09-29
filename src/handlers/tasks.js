@@ -22,7 +22,7 @@ function getTaskById(req, res) {
 
 function createNewTask(req, res) {
   const taskFromBody = req.body;
-  const newTask = { id: uniqueId++, ...taskFromBody };
+  const newTask = { id: uniqueId++, ...taskFromBody, createdAt: Date.now() };
   db.tasks.push(newTask);
   res
     .status(201)

@@ -4,6 +4,7 @@ const db = {
   tasks: [
     {
       id: uniqueId++,
+      createdAt: Date.now() - 2000,
       title: "Complete Module 1, Node js Intro",
       description:
         "Module 1 was missed last week. Try finishing it before the next session",
@@ -11,6 +12,7 @@ const db = {
     },
     {
       id: uniqueId++,
+      createdAt: Date.now(),
       title: "Complete Module 2, REST API and Express",
       description: "Assignments for Module 2 are pending. Need to finish that!",
       completed: false,
