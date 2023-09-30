@@ -24,13 +24,6 @@ const db = {
       description: "revise ASAP",
       completed: false,
     },
-    {
-      id: uniqueId++,
-      createdAt: Date.now(),
-      title: "Develop the Task Manager API",
-      description: "Based on the question, complete this!",
-      completed: false,
-    },
   ],
 };
 

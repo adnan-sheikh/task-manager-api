@@ -2,10 +2,13 @@ let { db, uniqueId } = require("../../../db");
 
 function getAllTasks(_, res) {
   const allTasks = db.tasks;
-  if (allTasks.length === 0) {
-    return res.status(200).json([]);
-  }
   res.status(200).json(allTasks);
+}
+
+function getTasksBasedOnPriority(req, res) {
+  const priority = req.params.level;
+  const filteredTasks = db.tasks.filter((task) => task?.priority === priority);
+  res.status(200).json(filteredTasks);
 }
 
 function getTaskById(req, res) {
@@ -80,6 +83,7 @@ function deleteTaskById(req, res) {
 
 module.exports = {
   getTaskById,
+  getTasksBasedOnPriority,
   getAllTasks,
   createNewTask,
   updateTask,

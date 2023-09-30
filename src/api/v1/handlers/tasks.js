@@ -2,9 +2,6 @@ let { db, uniqueId } = require("../../../db");
 
 function getAllTasks(_, res) {
   const allTasks = db.tasks;
-  if (allTasks.length === 0) {
-    return res.status(200).json([]);
-  }
   res.status(200).json(allTasks);
 }
 
