@@ -1,4 +1,4 @@
-let { db, uniqueId } = require("../db");
+let { db, uniqueId } = require("../../../db");
 
 function getAllTasks(req, res) {
   const allTasks = db.tasks;

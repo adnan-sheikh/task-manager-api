@@ -1,4 +1,4 @@
-const { isBoolean, isEmpty } = require("../utils");
+const { isEmpty, isBoolean } = require("../../../utils");
 
 function validateTaskInput(req, res, next) {
   const taskFromBody = req.body;

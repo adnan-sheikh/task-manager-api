@@ -1,5 +1,5 @@
-const { db } = require("../db");
-const { isEmpty } = require("../utils");
+const { db } = require("../../../db");
+const { isEmpty } = require("../../../utils");
 
 function getFilteredTasks(req, res, next) {
   const queryParams = req.query;

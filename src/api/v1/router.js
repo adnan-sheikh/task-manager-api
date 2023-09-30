@@ -6,7 +6,7 @@ const {
   updateTask,
   deleteTaskById,
 } = require("./handlers/tasks");
-const { validateTaskInput, getFilteredTasks } = require("./middlewares");
+const { getFilteredTasks, validateTaskInput } = require("./middlewares");
 
 const router = express.Router();
 
