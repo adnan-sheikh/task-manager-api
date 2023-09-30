@@ -9,7 +9,6 @@ const db = {
       description:
         "Module 1 was missed last week. Try finishing it before the next session",
       completed: true,
-      priority: "low",
     },
     {
       id: uniqueId++,
@@ -17,7 +16,6 @@ const db = {
       title: "Complete Module 2, REST API and Express",
       description: "Assignments for Module 2 are pending. Need to finish that!",
       completed: false,
-      priority: "medium",
     },
     {
       id: uniqueId++,
@@ -25,7 +23,6 @@ const db = {
       title: "Revision for Module 1 and 2",
       description: "revise ASAP",
       completed: false,
-      priority: "medium",
     },
     {
       id: uniqueId++,
@@ -33,7 +30,6 @@ const db = {
       title: "Develop the Task Manager API",
       description: "Based on the question, complete this!",
       completed: false,
-      priority: "high",
     },
   ],
 };
