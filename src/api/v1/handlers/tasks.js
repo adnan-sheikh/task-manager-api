@@ -1,6 +1,6 @@
 let { db, uniqueId } = require("../../../db");
 
-function getAllTasks(req, res) {
+function getAllTasks(_, res) {
   const allTasks = db.tasks;
   if (allTasks.length === 0) {
     return res.status(200).json([]);
