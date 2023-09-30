@@ -1,6 +1,7 @@
 const express = require("express");
 const { router: v1Router } = require("./api/v1/router");
-const { selectHTMLPage } = require("./api/v1/handlers/pages");
+const { router: v2Router } = require("./api/v2/router");
+const { selectHTMLPage } = require("./handlers/pages");
 
 const app = express();
 app.use(express.json());
@@ -10,6 +11,7 @@ app.use(express.urlencoded({ extended: true }));
  * API routes
  */
 app.use("/api/v1", v1Router);
+app.use("/api/v2", v2Router);
 
 /**
  * Static pages
