@@ -6,8 +6,8 @@ A RESTful API for a task manager application using Node.js, and Express.js. This
 
 ### Setup
 
-- Clone this repository.
-- Run `npm install` to install the necessary packages.
+1. Clone this repository.
+2. Run `npm install` to install the necessary packages.
 
 ### API Versions
 
@@ -24,7 +24,7 @@ A RESTful API for a task manager application using Node.js, and Express.js. This
 
 ### Database
 
-Database is an in-memory database in code itself.
+Database is an in-memory database in code itself. It is pre-populated with some fields.
 
 ### Input Validation and Error Handling
 
@@ -54,7 +54,7 @@ When invalid input is provided during the creation or update of a task, the API 
 }
 ```
 
-Other errors apart from Validation are laid out in JSON as follows. Following is an example when user tries to GET /tasks/:id with an invalid ID:
+Other errors apart from Validation are laid out in JSON as follows. Following is an example when user tries to GET `/tasks/:id` with an invalid ID, status code: 400:
 
 ```json
 {
@@ -98,3 +98,5 @@ When getting all the tasks using GET `/api/v2/tasks`, filtering and sorting can 
 
 - In order to upgrade your experience by using filtering, sorting and priority level features, update your API calls to use `/api/v2` instead of `/api/v1`.
 - Ensure that `priority` is included when creating or modifying tasks in v2, with the value being `low` | `medium` | `high`.
+
+PS: Apart from the API itself, static pages are served too. So, go to index page, i.e `/` route in the browser and you can see it from there, that you can do all the CRUD operations. UI is not meant to be beautiful, but workable. It uses v1 API for testing purposes. You can use Postman or integrated into VS Code, Thunder Client for API testing
