@@ -3,9 +3,7 @@ let { db, uniqueId } = require("../db");
 function getAllTasks(req, res) {
   const allTasks = db.tasks;
   if (allTasks.length === 0) {
-    return res.status(404).json({
-      message: "Tasks are empty! Create a new task to view!",
-    });
+    return res.status(200).json([]);
   }
   res.status(200).json(allTasks);
 }

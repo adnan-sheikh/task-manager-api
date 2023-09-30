@@ -43,7 +43,7 @@ function getFilteredTasks(req, res, next) {
   if (filteredTasks?.length > 0) {
     return res.status(200).json(filteredTasks);
   } else if (filteredTasks?.length === 0) {
-    return res.status(404).json([]);
+    return res.status(200).json([]);
   }
 
   next();
