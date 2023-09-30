@@ -25,6 +25,14 @@ const db = {
       completed: false,
       priority: "high",
     },
+    {
+      id: uniqueId++,
+      createdAt: Date.now() - 1000,
+      title: "Build a Task Manager API",
+      description: "there's a deadline",
+      completed: true,
+      priority: "high",
+    },
   ],
 };
 
