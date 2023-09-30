@@ -35,6 +35,8 @@ function getFilteredTasks(req, res, next) {
   }
 
   if (!isEmpty(sortKey) && (sortKey === "createdAt" || sortKey === "title")) {
+    console.log(sortKey);
+    console.log(sortOrder);
     filteredTasks = filteredTasks
       ? filteredTasks.sort(sortComparator(sortOrder, sortKey))
       : db.tasks.sort(sortComparator(sortOrder, sortKey));
@@ -52,8 +54,14 @@ function getFilteredTasks(req, res, next) {
 function sortComparator(sortOrder, sortKey) {
   return (a, b) => {
     if (sortOrder === "asc") {
+      if (sortKey === "title") {
+        return a[sortKey].localeCompare(b[sortKey]);
+      }
       return a[sortKey] - b[sortKey];
     } else if (sortOrder === "desc") {
+      if (sortKey === "title") {
+        return b[sortKey].localeCompare(a[sortKey]);
+      }
       return b[sortKey] - a[sortKey];
     }
     return 0;
