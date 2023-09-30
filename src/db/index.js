@@ -23,6 +23,7 @@ const db = {
       title: "Revision for Module 1 and 2",
       description: "revise ASAP",
       completed: false,
+      priority: "high",
     },
   ],
 };

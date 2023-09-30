@@ -1,6 +1,6 @@
 const express = require("express");
-const { router: v1Router } = require("./api/v1/router");
-const { router: v2Router } = require("./api/v2/router");
+const { v1Router } = require("./api/v1/router");
+const { v2Router } = require("./api/v2/router");
 const { selectHTMLPage } = require("./handlers/pages");
 
 const app = express();

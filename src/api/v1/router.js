@@ -16,4 +16,4 @@ router.post("/tasks", validateTaskInput, createNewTask);
 router.put("/tasks/:id", validateTaskInput, updateTask);
 router.delete("/tasks/:id", deleteTaskById);
 
-module.exports = { router };
+module.exports = { v1Router: router };
