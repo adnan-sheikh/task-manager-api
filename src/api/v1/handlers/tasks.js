@@ -36,7 +36,8 @@ function createNewTask(req, res) {
 
 function updateTask(req, res) {
   const newTaskDetails = req.body;
-  const oldTaskDetails = db.tasks.find((task) => task.id == req.params.id);
+  const newTaskId = req.params.id;
+  const oldTaskDetails = db.tasks.find((task) => task.id == newTaskId);
   if (!oldTaskDetails) {
     return res.status(404).json({
       code: 4040,
@@ -44,7 +45,7 @@ function updateTask(req, res) {
       description: "Please try updating a task with valid ID!",
     });
   }
-  const taskId = +newTaskDetails.id;
+  const taskId = +newTaskId;
   const { title, description, completed } = newTaskDetails;
   const updatedTask = { id: taskId, title, description, completed };
   db.tasks = db.tasks.map((task) => {
