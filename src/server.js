@@ -2,10 +2,12 @@ const express = require("express");
 const { v1Router } = require("./api/v1/router");
 const { v2Router } = require("./api/v2/router");
 const { selectHTMLPage } = require("./handlers/pages");
+const { customLogger } = require("./middlewares/customLogger");
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(customLogger);
 
 /**
  * API routes

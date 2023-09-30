@@ -8,6 +8,7 @@ A RESTful API for a task manager application using Node.js, and Express.js. This
 
 1. Clone this repository.
 2. Run `npm install` to install the necessary packages.
+3. Run `npm start` to start the localhost server, on PORT:3000
 
 ### API Versions
 
