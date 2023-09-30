@@ -63,7 +63,7 @@
       const idInput = formData.get("id");
 
       extraUpdateForm.innerHTML = "";
-      const res = await fetch(`/tasks/${idInput}`, {
+      const res = await fetch(`/api/v1/tasks/${idInput}`, {
         method: "GET",
       });
       if (!res.ok) {
@@ -127,7 +127,7 @@
       newTask.completed = newTask.completed === "yes" ? true : false;
       const errorElement = document.getElementById("errorElement");
       errorElement.textContent = "";
-      const res = await fetch(`/tasks/${id}`, {
+      const res = await fetch(`/api/v1/tasks/${id}`, {
         method: "PUT",
         body: JSON.stringify(newTask),
         headers: {

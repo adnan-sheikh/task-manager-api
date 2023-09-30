@@ -24,7 +24,7 @@
       reset();
       displayDiv.innerText = "Loading all the tasks... Hang on!";
       setTimeout(async () => {
-        const res = await fetch("/tasks", {
+        const res = await fetch("/api/v1/tasks", {
           headers: {
             "Content-Type": "application/json",
           },

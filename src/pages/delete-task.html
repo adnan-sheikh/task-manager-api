@@ -53,7 +53,7 @@
       const idInput = formData.get("id");
 
       displayDiv.innerText = "";
-      const res = await fetch(`/tasks/${idInput}`, {
+      const res = await fetch(`/api/v1/tasks/${idInput}`, {
         method: "DELETE",
       });
       if (!res.ok) {

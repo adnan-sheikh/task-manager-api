@@ -48,7 +48,7 @@
       const id = formData.get("id");
       displayDiv.innerText = `Loading Task with ID: ${id}... Hang on!`;
       setTimeout(async () => {
-        const res = await fetch(`/tasks/${id}`, {
+        const res = await fetch(`/api/v1/tasks/${id}`, {
           method: "GET",
         });
         if (!res.ok) {
