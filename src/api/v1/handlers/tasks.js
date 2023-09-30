@@ -25,10 +25,10 @@ function createNewTask(req, res) {
   const { title, description, completed } = taskFromBody;
   const newTask = {
     id: uniqueId++,
+    createdAt: Date.now(),
     title,
     description,
     completed,
-    createdAt: Date.now(),
   };
   db.tasks.push(newTask);
   res.status(201).json(newTask);
@@ -47,7 +47,13 @@ function updateTask(req, res) {
   }
   const taskId = +newTaskId;
   const { title, description, completed } = newTaskDetails;
-  const updatedTask = { id: taskId, title, description, completed };
+  const updatedTask = {
+    id: taskId,
+    createdAt: oldTaskDetails.createdAt,
+    title,
+    description,
+    completed,
+  };
   db.tasks = db.tasks.map((task) => {
     if (task.id == taskId) {
       return updatedTask;
