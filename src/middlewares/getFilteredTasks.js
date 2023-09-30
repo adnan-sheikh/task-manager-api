@@ -35,8 +35,6 @@ function getFilteredTasks(req, res, next) {
   }
 
   if (!isEmpty(sortKey) && (sortKey === "createdAt" || sortKey === "title")) {
-    console.log(sortKey);
-    console.log(sortOrder);
     filteredTasks = filteredTasks
       ? filteredTasks.sort(sortComparator(sortOrder, sortKey))
       : db.tasks.sort(sortComparator(sortOrder, sortKey));
