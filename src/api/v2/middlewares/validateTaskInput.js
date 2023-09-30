@@ -49,7 +49,7 @@ function validateTaskInput(req, res, next) {
     error.errors.push({
       code: 4011,
       field: "priority",
-      message: "Priority should be either low, medium or high",
+      message: "Priority should be either `low`, `medium` or `high`. Values are case sensitive!",
     });
   }
   if (error.errors.length > 0) {
