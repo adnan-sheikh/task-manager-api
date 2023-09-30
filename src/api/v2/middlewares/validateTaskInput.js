@@ -1,10 +1,12 @@
 const { isEmpty, isBoolean } = require("../../../utils");
+const { PRIORITY_LEVEL } = require("../const");
 
 function validateTaskInput(req, res, next) {
   const taskFromBody = req.body;
   const title = taskFromBody?.title;
   const description = taskFromBody?.description;
   const completed = taskFromBody?.completed;
+  const priority = taskFromBody?.priority;
   const error = {
     code: 1024,
     message: "Validation Failed",
@@ -35,6 +37,19 @@ function validateTaskInput(req, res, next) {
       code: 4010,
       field: "completed",
       message: "Completed should be a boolean",
+    });
+  }
+  if (isEmpty(priority)) {
+    error.errors.push({
+      code: 4004,
+      field: "priority",
+      message: "Priority cannot be empty",
+    });
+  } else if (!PRIORITY_LEVEL.includes(priority)) {
+    error.errors.push({
+      code: 4011,
+      field: "priority",
+      message: "Priority should be either low, medium or high",
     });
   }
   if (error.errors.length > 0) {
